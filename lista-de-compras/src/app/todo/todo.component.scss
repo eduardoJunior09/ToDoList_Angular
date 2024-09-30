@@ -34,3 +34,27 @@ header .title {
   justify-content: center;
   padding: 12px;
 }
+
+@media (max-width: 800px) {
+  .container {
+    padding: 4vw;
+  }
+
+  .todo-list {
+    width: 100%;
+    padding: 2vw;
+    border-radius: 1vw;
+  }
+
+  header {
+    padding: 2vw;
+  }
+  
+  header .title {
+    font-size: 6vw;
+  }
+
+  .section-add-task {
+    padding: 2vw;
+  }
+}

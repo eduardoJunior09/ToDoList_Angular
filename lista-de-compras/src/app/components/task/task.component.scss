@@ -37,3 +37,28 @@
   color: #ffffff;
   background-color: #ff5845;
 }
+
+@media (max-width: 800px) {
+  .container {
+    padding: 2vw;
+    margin-bottom: 1vw;
+  }
+  .insert-task-section {
+    width: 100%;
+    border-radius: 2vw;
+  }
+
+  .size {
+    padding: 2vw;
+    font-size: 3vw;
+  }
+
+  .input-add-task {
+    border-top-left-radius: 2vw;
+    border-bottom-left-radius: 2vw;
+  }
+
+  .btn-add-task {
+    border-radius: 2vw;
+  }
+}
