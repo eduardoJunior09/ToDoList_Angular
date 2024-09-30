@@ -1,0 +1,39 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  margin-bottom: 12px;
+  width: 100%;
+}
+.insert-task-section {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  max-width: 500px;
+  width: 100%;
+  border-radius: 16px;
+  background-color: #edeef0;
+}
+
+.size {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+}
+
+.input-add-task {
+  outline: none;
+  border: none;
+  border-top-left-radius: 16px;
+  border-bottom-left-radius: 16px;
+  color: #313233;
+  background-color: #edeef0;
+}
+
+.btn-add-task {
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  color: #ffffff;
+  background-color: #ff5845;
+}
