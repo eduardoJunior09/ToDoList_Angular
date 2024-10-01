@@ -6,7 +6,7 @@
   margin-bottom: 12px;
   width: 100%;
 }
-.insert-task-section {
+.insert-item-section {
   display: grid;
   grid-template-columns: 2fr 1fr;
   max-width: 500px;
@@ -21,7 +21,7 @@
   font-size: 16px;
 }
 
-.input-add-task {
+.input-add-item {
   outline: none;
   border: none;
   border-top-left-radius: 16px;
@@ -30,7 +30,7 @@
   background-color: #edeef0;
 }
 
-.btn-add-task {
+.btn-add-item {
   border: none;
   border-radius: 12px;
   cursor: pointer;
@@ -43,7 +43,7 @@
     padding: 2vw;
     margin-bottom: 1vw;
   }
-  .insert-task-section {
+  .insert-item-section {
     width: 100%;
     border-radius: 2vw;
   }
@@ -53,12 +53,12 @@
     font-size: 3vw;
   }
 
-  .input-add-task {
+  .input-add-item {
     border-top-left-radius: 2vw;
     border-bottom-left-radius: 2vw;
   }
 
-  .btn-add-task {
+  .btn-add-item {
     border-radius: 2vw;
   }
 }
