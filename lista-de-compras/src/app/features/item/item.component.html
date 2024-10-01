@@ -1,0 +1,13 @@
+<ul>
+  @for (shoe of typesOfShoes; track shoe) {
+    <li>
+        <mat-checkbox>
+            {{ shoe }}
+        </mat-checkbox>
+        <div class="options">
+            <app-edit-button></app-edit-button>
+            <app-remove-button></app-remove-button>
+        </div>
+    </li>
+  }
+</ul>
