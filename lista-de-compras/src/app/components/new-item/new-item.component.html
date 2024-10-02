@@ -1,7 +1,15 @@
-
 <div class="container">
-    <div class="insert-item-section">
-        <input class="input-add-item size" type="text" placeholder="New iten"/>
-        <button class="btn-add-item size">ADD</button>
-      </div>
+  <div class="insert-item-section">
+    <input
+      class="input-add-item size"
+      type="text"
+      placeholder="New item"
+      [(ngModel)]="newItem"
+      (input)="validateForm()"
+    />
+    <button class="btn-add-item size" (click)="addItem()">ADD</button>
+  </div>
+</div>
+<div *ngIf="showError" class="msgError">
+  <p>O item deve ter pelo menos 2 caracteres.</p>
 </div>
