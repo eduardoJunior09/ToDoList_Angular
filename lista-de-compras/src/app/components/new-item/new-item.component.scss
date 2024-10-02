@@ -6,6 +6,7 @@
   margin-bottom: 12px;
   width: 100%;
 }
+
 .insert-item-section {
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -38,11 +39,23 @@
   background-color: #ff5845;
 }
 
+.msgError {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  margin: 4px 0;
+  width: 100%;
+  font-size: 16px;
+  color: red;
+}
+
 @media (max-width: 800px) {
   .container {
     padding: 2vw;
     margin-bottom: 1vw;
   }
+
   .insert-item-section {
     width: 100%;
     border-radius: 2vw;
@@ -60,5 +73,11 @@
 
   .btn-add-item {
     border-radius: 2vw;
+  }
+
+  .msgError {
+    padding: 2vw;
+    margin: 1vw 0;
+    font-size: 3vw;
   }
 }

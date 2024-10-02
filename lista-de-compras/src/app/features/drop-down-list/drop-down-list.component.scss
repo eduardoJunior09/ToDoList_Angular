@@ -5,12 +5,21 @@
   width: 100%;
   margin: 16px 0;
 }
+
 mat-accordion {
   width: 80%;
 }
+
 mat-expansion-panel {
   padding: 8px;
   background-color: #edeef0;
+}
+
+mat-expansion-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
 }
 
 .status {
@@ -44,9 +53,15 @@ mat-panel-title {
   .container {
     margin: 3vw 0;
   }
+
+  mat-expansion-panel-header {
+    margin-bottom: 1vw;
+  }
+
   mat-accordion {
     width: 100%;
   }
+
   mat-expansion-panel {
     padding: 1vw;
   }
