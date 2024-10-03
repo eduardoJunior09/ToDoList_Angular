@@ -2,6 +2,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+  gap: 16px;
   width: 100%;
   margin: 16px 0;
 }
@@ -32,8 +34,6 @@ mat-expansion-panel-header {
   border-radius: 50%;
   border: 1px solid #313233;
   margin-right: 4px;
-  color: yellow;
-  background-color: yellow;
 }
 
 mat-panel-title {
@@ -46,12 +46,32 @@ mat-panel-title {
   border-radius: 8px;
   font-weight: bolder;
   color: #313233;
+ 
+}
+
+.amarelo {
+  color: yellow;
+  background-color: yellow;
+}
+
+.verde{
+  color: green;
+  background-color: green;
+}
+
+.bg-amarelo{
   background-color: rgba(255, 255, 0, 0.514);
 }
 
+.bg-verde{
+  background-color: rgba(8, 231, 8, 0.514);
+}
+
 @media (max-width: 800px) {
+ 
   .container {
     margin: 3vw 0;
+    gap: 3vw;
   }
 
   mat-expansion-panel-header {
