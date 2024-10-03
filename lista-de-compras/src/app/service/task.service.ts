@@ -6,29 +6,29 @@ import { Injectable } from '@angular/core';
 export class TaskService {
   private itens: { title: string; completed: boolean }[] = [];
 
-  //add uum novo item na lista
+  constructor() {
+   
+    this.itens = [
+      { title: 'Tarefa 1', completed: false },
+      { title: 'Tarefa 2', completed: true },
+      { title: 'Tarefa 3', completed: false },
+    ];
+  }
+
   addItem(title: string) {
     this.itens.push({ title, completed: false });
   }
 
-  //retorna toda lista de item
   getItens() {
     return this.itens;
   }
 
-  //função para sinalizar conclusão em relação ao item da lista
   completeItens(index: number) {
     if (this.itens[index]) {
-      this.itens[index].completed = true;
+      this.itens[index].completed = !this.itens[index].completed; 
     }
   }
 
-  // retorna apenas os item marcados como concluídos
-  getCompletedItens() {
-    return this.itens.filter((item) => item.completed);
-  }
-
-  // remover um item da lista com base no índice
   removeItem(index: number) {
     if (this.itens[index]) {
       this.itens.splice(index, 1);
