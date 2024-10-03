@@ -2,11 +2,22 @@
   <mat-accordion>
     <mat-expansion-panel [expanded]="true">
       <mat-expansion-panel-header>
-        <mat-panel-title
-          ><span class="status">-</span>Pendentes</mat-panel-title
+        <mat-panel-title class="bg-amarelo"
+          ><span class="status amarelo">-</span>Pendentes</mat-panel-title
         >
       </mat-expansion-panel-header>
-      <app-item></app-item>
+      <app-item-pending></app-item-pending> 
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <mat-accordion>
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title class="bg-verde"
+          ><span class="status verde">-</span>Concluídos</mat-panel-title
+        >
+      </mat-expansion-panel-header>
+    <app-item-completed></app-item-completed>
     </mat-expansion-panel>
   </mat-accordion>
 </div>

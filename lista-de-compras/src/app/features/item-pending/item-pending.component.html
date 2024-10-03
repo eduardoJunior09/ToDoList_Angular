@@ -1,0 +1,13 @@
+<ul>
+  <ng-container *ngFor="let item of itensPendentes; let i = index">
+    <li *ngIf="!item.completed">
+      <mat-checkbox (change)="completeItem(i)" [checked]="item.completed">
+        {{ item.title }}
+      </mat-checkbox>
+      <div class="options">
+        <app-edit-button></app-edit-button>
+        <app-remove-button (click)="removeItem(i)"></app-remove-button>
+      </div>
+    </li>
+  </ng-container>
+</ul>
