@@ -1,0 +1,11 @@
+<div class="container">
+  <h2 mat-dialog-title>Editar Tarefa</h2>
+  <mat-dialog-content>
+    <label for="title">Novo Título:</label>
+    <input id="title" [(ngModel)]="newTitle" />
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button (click)="onCancel()">Cancelar</button>
+    <button mat-button (click)="onSave()">Salvar</button>
+  </mat-dialog-actions>
+</div>

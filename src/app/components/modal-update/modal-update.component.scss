@@ -1,0 +1,60 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  padding: 8px;
+}
+
+.mdc-dialog__title {
+  color: #313233;
+  padding: 4px;
+}
+
+mat-dialog-content {
+  display: flex;
+  align-items: start;
+  justify-content: start;
+  flex-direction: column;
+  gap: 12px;
+  color: #313233;
+  width: 90%;
+  max-width: 600px;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+mat-dialog-content input {
+  width: 100%;
+  padding: 8px;
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  color: #313233;
+  background-color: #edeef0;
+}
+
+@media (max-width: 800px) {
+  .container {
+    padding: 2vw;
+  }
+
+  .mdc-dialog__title {
+    font-size: 6vw;
+    padding: 1vw;
+  }
+
+  mat-dialog-content {
+    gap: 2vw;
+    color: #313233;
+    width: 90%;
+    max-width: 600px;
+    padding: 4vw;
+  }
+
+  mat-dialog-content input {
+    padding: 2vw;
+    border-radius: 2vw;
+  }
+}
