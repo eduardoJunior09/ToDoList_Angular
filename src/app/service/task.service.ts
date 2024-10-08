@@ -34,4 +34,10 @@ export class TaskService {
       this.itens.splice(index, 1);
     }
   }
+
+  updatetitle(index: number, newTitle: string){
+    if(this.itens[index]){
+      this.itens[index].title = newTitle; 
+    }
+  }
 }
