@@ -1,5 +1,5 @@
 <ul>
-  <ng-container *ngFor="let item of itensPendentes; let i = index">
+  <ng-container *ngFor="let item of tasks; let i = index">
     <li *ngIf="!item.completed">
       <mat-checkbox (change)="completeItem(i)" [checked]="item.completed">
         {{ item.title }}

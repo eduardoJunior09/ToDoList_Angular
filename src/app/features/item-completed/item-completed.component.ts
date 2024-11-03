@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { EditButtonComponent } from '../../shared/buttons/edit-button/edit-button.component';
-import { RemoveButtonComponent } from '../../shared/buttons/remove-button/remove-button.component';
-import { TaskService } from './../../service/task.service';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit } from "@angular/core";
+import { MatCheckboxModule } from "@angular/material/checkbox";
+import { EditButtonComponent } from "../../shared/buttons/edit-button/edit-button.component";
+import { RemoveButtonComponent } from "../../shared/buttons/remove-button/remove-button.component";
+import { TaskService } from "./../../service/task.service";
+import { CommonModule } from "@angular/common";
+import { Task } from "./../../service/task";
 
 @Component({
-  selector: 'app-item-completed',
+  selector: "app-item-completed",
   standalone: true,
   imports: [
     MatCheckboxModule,
@@ -14,27 +15,40 @@ import { CommonModule } from '@angular/common';
     RemoveButtonComponent,
     CommonModule,
   ],
-  templateUrl: './item-completed.component.html',
-  styleUrl: './item-completed.component.scss',
+  templateUrl: "./item-completed.component.html",
+  styleUrls: ["./item-completed.component.scss"],
 })
-export class ItemCompletedComponent {
-  itensConcluidos: { title: string; completed: boolean }[] = [];
+export class ItemCompletedComponent implements OnInit {
+  constructor(private taskService: TaskService) {}
 
-  constructor(private taskService: TaskService) {
-    this.itensConcluidos = this.taskService.getItens();
+  tasks = Array<Task>();
+
+  ngOnInit() {
+    this.loadCompletedTask();
   }
 
-  removeItem(index: number) {
-    this.taskService.removeItem(index);
-    this.updateItems();
+  loadCompletedTask() {
+    this.taskService.getItens().subscribe((tasks) => {
+      this.tasks = tasks.filter((item) => item.completed);
+    });
   }
 
   completeItem(index: number) {
-    this.taskService.completeItens(index);
-    this.updateItems();
+    const item = this.tasks[index];
+    const updatedStatus = !item.completed;
+
+    this.taskService.completeItens(item.id).subscribe(() => {
+      item.completed = updatedStatus;
+    });
+    if (!updatedStatus) {
+      this.loadCompletedTask();
+    }
   }
 
-  updateItems() {
-    this.itensConcluidos = this.taskService.getItens();
+  removeItem(index: number) {
+    const itemId = this.tasks[index].id;
+    this.taskService.removeItem(itemId).subscribe(() => {
+      this.loadCompletedTask();
+    });
   }
 }
