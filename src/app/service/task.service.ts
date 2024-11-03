@@ -1,43 +1,54 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { BehaviorSubject, Observable, tap } from "rxjs";
+import { Task } from "./task";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class TaskService {
-  private itens: { title: string; completed: boolean }[] = [];
+  private apiUrl = "http://localhost:3000/shopping-list"; // Definindo o endpoint base
 
-  constructor() {
-   
-    this.itens = [
-      { title: 'Tarefa 1', completed: false },
-      { title: 'Tarefa 2', completed: true },
-      { title: 'Tarefa 3', completed: false },
-    ];
+  private tasksSubject = new BehaviorSubject<Task[]>([]);
+  tasks$ = this.tasksSubject.asObservable();
+
+  constructor(private http: HttpClient) {
+    this.loadTasks();
   }
 
-  addItem(title: string) {
-    this.itens.push({ title, completed: false });
+ 
+  loadTasks() {
+    this.getItens().subscribe((tasks) => {
+      this.tasksSubject.next(tasks); 
+    });
   }
 
-  getItens() {
-    return this.itens;
+  getItens(): Observable<Array<Task>> {
+    return this.http.get<Array<Task>>(this.apiUrl);
   }
 
-  completeItens(index: number) {
-    if (this.itens[index]) {
-      this.itens[index].completed = !this.itens[index].completed; 
-    }
+  addTask(task: Omit<Task, "id">): Observable<Task> {
+    return this.http.post<Task>(this.apiUrl, task).pipe(
+      tap(() => this.loadTasks()) 
+    );
   }
 
-  removeItem(index: number) {
-    if (this.itens[index]) {
-      this.itens.splice(index, 1);
-    }
+
+  completeTask(id: number, task: Partial<Task>): Observable<Task> {
+    return this.http.patch<Task>(`${this.apiUrl}/${id}`, task).pipe(
+      tap(() => this.loadTasks()) 
+    );
   }
 
-  updatetitle(index: number, newTitle: string){
-    if(this.itens[index]){
-      this.itens[index].title = newTitle; 
-    }
+  removeTask(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
+      tap(() => this.loadTasks()) 
+    );
+  }
+
+  updateTask(id: number, task: Partial<Task>): Observable<Task> {
+    return this.http.patch<Task>(`${this.apiUrl}/${id}`, task).pipe(
+      tap(() => this.loadTasks()) 
+    );
   }
 }
