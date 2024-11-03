@@ -15,12 +15,12 @@ import { HomeComponent } from './home/home.component';
 export class AppComponent {
   title = 'lista-de-compras';
 
-  constructor(public auth: AuthService, private router: Router) { // Verifique a injeção do Router aqui
+  constructor(public auth: AuthService, private router: Router) { 
     this.auth.isAuthenticated$.subscribe(isAuthenticated => {
       console.log('User authenticated:', isAuthenticated);
     });
 
-    // Redirecionar com base no appState após a autenticação
+  
     this.auth.appState$.subscribe(appState => {
       if (appState && appState.target) {
         this.router.navigate([appState.target]);
