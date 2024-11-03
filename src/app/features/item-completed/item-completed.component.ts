@@ -24,6 +24,9 @@ export class ItemCompletedComponent implements OnInit {
   tasks = Array<Task>();
 
   ngOnInit() {
+    this.taskService.tasks$.subscribe((tasks) => {
+      this.tasks = tasks;
+    });
     this.loadCompletedTask();
   }
 
@@ -35,20 +38,22 @@ export class ItemCompletedComponent implements OnInit {
 
   completeItem(index: number) {
     const item = this.tasks[index];
-    const updatedStatus = !item.completed;
-
-    this.taskService.completeItens(item.id).subscribe(() => {
-      item.completed = updatedStatus;
-    });
-    if (!updatedStatus) {
-      this.loadCompletedTask();
-    }
+    const result = !this.tasks[index].completed;
+    console.log("Lista de Tarefas:", this.tasks);
+    this.taskService
+      .completeTask(item.id, { completed: result })
+      .subscribe((completeTask) => {
+        const taskIndex = this.tasks.findIndex((t) => t.id === completeTask.id);
+        if (taskIndex !== -1) {
+          this.tasks[taskIndex] = completeTask;
+        }
+      });
   }
 
   removeItem(index: number) {
     const itemId = this.tasks[index].id;
-    this.taskService.removeItem(itemId).subscribe(() => {
-      this.loadCompletedTask();
+    this.taskService.removeTask(itemId).subscribe(() => {
+      this.tasks = this.tasks.filter((task) => task.id !== itemId);
     });
   }
 }

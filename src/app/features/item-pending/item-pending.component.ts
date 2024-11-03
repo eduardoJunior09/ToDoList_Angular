@@ -4,7 +4,7 @@ import { EditButtonComponent } from "../../shared/buttons/edit-button/edit-butto
 import { RemoveButtonComponent } from "../../shared/buttons/remove-button/remove-button.component";
 import { CommonModule } from "@angular/common";
 import { TaskService } from "../../service/task.service";
-import { MatDialog, MatDialogModule } from "@angular/material/dialog";
+import { MatDialog } from "@angular/material/dialog";
 import { ModalUpdateComponent } from "./../../components/modal-update/modal-update.component";
 import { Task } from "./../../service/task";
 
@@ -17,62 +17,67 @@ import { Task } from "./../../service/task";
     RemoveButtonComponent,
     CommonModule,
     ModalUpdateComponent,
-    MatDialogModule,
   ],
   templateUrl: "./item-pending.component.html",
   styleUrls: ["./item-pending.component.scss"],
 })
 export class ItemPendingComponent implements OnInit {
-  dialog: any;
-  constructor(private taskService: TaskService) {}
+  constructor(private taskService: TaskService, private dialog: MatDialog) {}
 
   tasks = Array<Task>();
 
   ngOnInit() {
+    this.taskService.tasks$.subscribe((tasks) => {
+      this.tasks = tasks;
+    });
     this.loadCompletedTask();
   }
 
   loadCompletedTask() {
     this.taskService.getItens().subscribe((tasks) => {
-      this.tasks = tasks.filter((item) => item.completed);
+      this.tasks = tasks.filter((item) => !item.completed);
+    });
+  }
+
+  removeItem(index: number) {
+    const itemId = this.tasks[index].id;
+    this.taskService.removeTask(itemId).subscribe(() => {
+      this.tasks = this.tasks.filter((task) => task.id !== itemId);
     });
   }
 
   completeItem(index: number) {
     const item = this.tasks[index];
-    const updatedStatus = !item.completed;
-
-    this.taskService.completeItens(item.id).subscribe(() => {
-      item.completed = updatedStatus;
-    });
-    if (!updatedStatus) {
-      this.loadCompletedTask();
-    }
+    const result = !this.tasks[index].completed; console.log("Lista de Tarefas:", this.tasks);
+    this.taskService
+      .completeTask(item.id, { completed: result })
+      .subscribe((completeTask) => {
+        const taskIndex = this.tasks.findIndex((t) => t.id === completeTask.id);
+        if (taskIndex !== -1) {
+          this.tasks[taskIndex] = completeTask;
+        }
+      });
+     
   }
-
-  removeItem(index: number) {
-    const itemId = this.tasks[index].id;
-    this.taskService.removeItem(itemId).subscribe(() => {
-      this.loadCompletedTask();
-    });
-  }
-
 
   editItem(index: number) {
-
     const item = this.tasks[index];
     const dialogRef = this.dialog.open(ModalUpdateComponent, {
-      data: { index, title: item.title },  
+      data: { title: item.title },
     });
 
-
-
-    dialogRef.afterClosed().subscribe((result:string) => {
+    dialogRef.afterClosed().subscribe((result: string) => {
       if (result) {
-        this.taskService.updateTitle(item.id, result).subscribe(() => {
-          item.title = result;  // Atualiza o título localmente
-          this.loadCompletedTask(); 
-        });
+        this.taskService
+          .updateTask(item.id, { title: result })
+          .subscribe((updatedTask) => {
+            const taskIndex = this.tasks.findIndex(
+              (t) => t.id === updatedTask.id
+            );
+            if (taskIndex !== -1) {
+              this.tasks[taskIndex] = updatedTask;
+            }
+          });
       }
     });
   }
