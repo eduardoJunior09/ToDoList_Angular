@@ -9,22 +9,27 @@
       "id": "2",
       "name": "Bob",
       "email": "bob@exemplo.com"
+    },
+    {
+      "id": "29ca",
+      "name": "Eduardo Júnior",
+      "email": "juninhosouza102038@gmail.com"
+    },
+    {
+      "id": "038e",
+      "name": "Eduardo Júnior",
+      "email": "eduardojunior.dev@gmail.com"
     }
   ],
   "shopping-list": [
     {
-      "id": "d862",
-      "title": "Comprar",
-      "completed": false,
-    },
-    {
-      "id": "28d7",
-      "title": "Ler Livro",
+      "id": "9fd7",
+      "title": "Teste 03",
       "completed": false
     },
     {
-      "id": "0fb0",
-      "title": "Leva o pet",
+      "id": "c0f1",
+      "title": "Abc",
       "completed": true
     }
   ]
