@@ -3,26 +3,42 @@ import { Component } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { TaskService } from "./../../service/task.service";
 import { Task } from "./../../service/task";
+import { UserSessionService } from './../../service/UserSessionServe';
 
 @Component({
   selector: "app-new-item",
   standalone: true,
-  imports: [FormsModule, CommonModule], // Imports de módulos necessários
+  imports: [FormsModule, CommonModule],
   templateUrl: "./new-item.component.html",
   styleUrls: ["./new-item.component.scss"],
 })
 export class NewItemComponent {
-  constructor(private taskService: TaskService) {}
+  constructor(private taskService: TaskService, private userSessionService: UserSessionService) {}
 
   newItem: string = "";
   showError: boolean = false;
   tasks: Task[] = [];
+  userNotAuthenticated: boolean = false;  // Nova variável para controlar erro de usuário não autenticado
 
   addItem() {
+    const userId = this.userSessionService.getUser()?.id;
+
+    if (!userId) {
+      this.userNotAuthenticated = true;  // Define como verdadeiro caso o usuário não esteja autenticado
+      console.error('Usuário não autenticado!');
+      return;
+    }
+
+    this.userNotAuthenticated = false;  // Se o usuário for autenticado, definimos como falso
+
     this.validateForm();
 
     if (!this.showError) {
-      const taskToAdd: Omit<Task, "id"> = { title: this.newItem.trim(), completed: false };
+      const taskToAdd: Omit<Task, "id"> = {
+        title: this.newItem.trim(),
+        completed: false,
+        userId: userId,
+      };
 
       this.taskService.addTask(taskToAdd).subscribe({
         next: (task: Task) => {

@@ -1,8 +1,9 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { BehaviorSubject, Observable, of, switchMap, tap, catchError } from "rxjs";
+import { BehaviorSubject, Observable, of, switchMap, tap, catchError, map } from "rxjs";
 import { Task } from "./task";
 import { UserProfile } from "./userProfile";
+import { UserSessionService } from './UserSessionServe';
 
 @Injectable({
   providedIn: "root",
@@ -12,7 +13,7 @@ export class TaskService {
   private tasksSubject = new BehaviorSubject<Task[]>([]);
   tasks$ = this.tasksSubject.asObservable();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private userSessionService: UserSessionService) {
     this.loadTasks();  // Load initial tasks
   }
 
@@ -21,10 +22,20 @@ export class TaskService {
       this.tasksSubject.next(tasks);
     });
   }
-
+  
   getItens(): Observable<Task[]> {
-    return this.http.get<Task[]>(`${this.apiUrl}/shopping-list`);
+    const userId = this.userSessionService.getUser()?.id; 
+  
+    if (!userId) {
+      console.error("Usuário não autenticado!");
+      return new Observable<Task[]>();  
+    }
+  
+    return this.http.get<Task[]>(`${this.apiUrl}/shopping-list`).pipe(
+      map((tasks: Task[]) => tasks.filter(task => task.userId === userId))  
+    );
   }
+  
 
   addTask(task: Omit<Task, "id">): Observable<Task> {
     return this.http

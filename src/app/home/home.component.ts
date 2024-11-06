@@ -44,8 +44,9 @@ export class HomeComponent implements OnInit {
     };
     this.taskService.addUser(newUser).subscribe((user) => {
       if (user['id']) {
-        this.userSessionService.setUser(user); // Armazena o perfil completo do usuário no singleton
+        this.userSessionService.setUser(user); 
         console.log("Usuário armazenado no Singleton:", this.userSessionService.getUser());
+        this.taskService.loadTasks();
       }
     });
   }
