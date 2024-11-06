@@ -7,7 +7,7 @@ import { Task } from "./../../service/task";
 @Component({
   selector: "app-new-item",
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule], // Imports de módulos necessários
   templateUrl: "./new-item.component.html",
   styleUrls: ["./new-item.component.scss"],
 })
@@ -16,13 +16,13 @@ export class NewItemComponent {
 
   newItem: string = "";
   showError: boolean = false;
-  tasks = Array<Task>();
+  tasks: Task[] = [];
 
   addItem() {
     this.validateForm();
 
     if (!this.showError) {
-      const taskToAdd:  Omit<Task, 'id'> = { title: this.newItem.trim(), completed: false };
+      const taskToAdd: Omit<Task, "id"> = { title: this.newItem.trim(), completed: false };
 
       this.taskService.addTask(taskToAdd).subscribe({
         next: (task: Task) => {
@@ -36,7 +36,6 @@ export class NewItemComponent {
       });
     }
   }
-
 
   validateForm() {
     this.showError = this.newItem.trim().length < 2;
