@@ -19,6 +19,11 @@
       "id": "038e",
       "name": "Eduardo Júnior",
       "email": "eduardojunior.dev@gmail.com"
+    },
+    {
+      "id": "9a7a",
+      "name": "Eduardo Caetano",
+      "email": "contato.eduardojrdev@gmail.com"
     }
   ],
   "shopping-list": [
@@ -31,6 +36,54 @@
       "id": "c0f1",
       "title": "Abc",
       "completed": true
+    },
+    {
+      "id": "2f09",
+      "title": "Teste 02",
+      "completed": false,
+      "userId": "29ca"
+    },
+    {
+      "id": "784e",
+      "title": "Teste 01",
+      "completed": true,
+      "userId": "29ca"
+    },
+    {
+      "id": "6058",
+      "title": "Teste 03",
+      "completed": false,
+      "userId": "29ca"
+    },
+    {
+      "id": "876b",
+      "title": "Teste 25",
+      "completed": false,
+      "userId": "9a7a"
+    },
+    {
+      "id": "62c1",
+      "title": "Teste 70",
+      "completed": true,
+      "userId": "9a7a"
+    },
+    {
+      "id": "6505",
+      "title": "Teste 01",
+      "completed": false,
+      "userId": "29ca"
+    },
+    {
+      "id": "6e4d",
+      "title": "sdfsdfsd",
+      "completed": false,
+      "userId": "9a7a"
+    },
+    {
+      "id": "a0a4",
+      "title": "dfsdfs",
+      "completed": false,
+      "userId": "038e"
     }
   ]
 }
