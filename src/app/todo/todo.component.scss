@@ -19,12 +19,42 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   width: 100%;
+  gap: 12px;
   padding: 12px;
 }
 
 header .title {
   color: #313233;
+}
+
+.navbar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px;
+}
+
+.navbar span {
+  font-size: 16px;
+  color: #313233;
+}
+
+.navbar button {
+  font-size: 14px;
+  padding: 8px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  background-color: #ff0000a9;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.navbar button:hover {
+  background-color: rgba(255, 0, 0, 0.904);
 }
 
 .section-add-task {
@@ -47,14 +77,39 @@ header .title {
   }
 
   header {
+    gap: 2vw;
     padding: 2vw;
   }
-  
+
   header .title {
+    font-weight: bold;
+    margin: 0;
     font-size: 6vw;
   }
 
   .section-add-task {
     padding: 2vw;
+  }
+
+  .navbar {
+    padding: 2vw;
+  }
+
+  .navbar {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px;
+  }
+
+  .navbar span {
+    font-size: 4vw;
+  }
+
+  .navbar button {
+    font-size: 3vw;
+    padding: 2vw;
+    border-radius: 2vw;
   }
 }

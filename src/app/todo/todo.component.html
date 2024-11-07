@@ -1,11 +1,12 @@
-<div class="navbar">
-  <span class="username">{{ profile?.name }}</span>
-  <button (click)="auth.logout()">Logout</button>
-</div>
+
 
 <div class="container">
   <div class="todo-list">
     <header>
+      <div class="navbar">
+        <span class="username">{{ profile?.name }}</span>
+        <button (click)="auth.logout()">Logout</button>
+      </div>
       <h1 class="title">Lista de Compras</h1>
     </header>
     <main>
