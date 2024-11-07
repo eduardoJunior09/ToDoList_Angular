@@ -52,19 +52,13 @@
     {
       "id": "6058",
       "title": "Teste 03",
-      "completed": false,
+      "completed": true,
       "userId": "29ca"
     },
     {
       "id": "876b",
       "title": "Teste 25",
       "completed": false,
-      "userId": "9a7a"
-    },
-    {
-      "id": "62c1",
-      "title": "Teste 70",
-      "completed": true,
       "userId": "9a7a"
     },
     {

@@ -3,7 +3,7 @@ import { Component, OnInit } from "@angular/core";
 import { AuthService } from "@auth0/auth0-angular";
 import { TaskService } from "../service/task.service";
 import { UserProfile } from "../service/userProfile";
-import { UserSessionService } from "./../service/UserSessionServe";
+import { UserSessionService } from "../service/UserSessionServe";
 
 @Component({
   selector: "app-home",
@@ -21,6 +21,11 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    const existingUser = this.userSessionService.getUser();
+    if (existingUser) {
+      this.taskService.loadTasks(); 
+    }
+    
     this.auth.user$.subscribe((userProfile) => {
       if (userProfile) {
         this.user = userProfile;

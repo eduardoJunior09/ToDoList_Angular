@@ -3,7 +3,7 @@ import { Component } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { TaskService } from "./../../service/task.service";
 import { Task } from "./../../service/task";
-import { UserSessionService } from './../../service/UserSessionServe';
+import { UserSessionService } from '../../service/UserSessionServe';
 
 @Component({
   selector: "app-new-item",
@@ -18,18 +18,18 @@ export class NewItemComponent {
   newItem: string = "";
   showError: boolean = false;
   tasks: Task[] = [];
-  userNotAuthenticated: boolean = false;  // Nova variável para controlar erro de usuário não autenticado
+  userNotAuthenticated: boolean = false; 
 
   addItem() {
     const userId = this.userSessionService.getUser()?.id;
 
     if (!userId) {
-      this.userNotAuthenticated = true;  // Define como verdadeiro caso o usuário não esteja autenticado
+      this.userNotAuthenticated = true; 
       console.error('Usuário não autenticado!');
       return;
     }
 
-    this.userNotAuthenticated = false;  // Se o usuário for autenticado, definimos como falso
+    this.userNotAuthenticated = false; 
 
     this.validateForm();
 

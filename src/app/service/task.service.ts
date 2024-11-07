@@ -1,20 +1,31 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { BehaviorSubject, Observable, of, switchMap, tap, catchError, map } from "rxjs";
+import {
+  BehaviorSubject,
+  Observable,
+  of,
+  switchMap,
+  tap,
+  catchError,
+  map,
+} from "rxjs";
 import { Task } from "./task";
 import { UserProfile } from "./userProfile";
-import { UserSessionService } from './UserSessionServe';
+import { UserSessionService } from "./UserSessionServe";
 
 @Injectable({
   providedIn: "root",
 })
 export class TaskService {
-  private apiUrl = "http://localhost:3000"; // Define the base endpoint
+  private apiUrl = "http://localhost:3000";
   private tasksSubject = new BehaviorSubject<Task[]>([]);
   tasks$ = this.tasksSubject.asObservable();
 
-  constructor(private http: HttpClient, private userSessionService: UserSessionService) {
-    this.loadTasks();  // Load initial tasks
+  constructor(
+    private http: HttpClient,
+    private userSessionService: UserSessionService
+  ) {
+    this.loadTasks();
   }
 
   loadTasks() {
@@ -22,20 +33,21 @@ export class TaskService {
       this.tasksSubject.next(tasks);
     });
   }
-  
+
   getItens(): Observable<Task[]> {
-    const userId = this.userSessionService.getUser()?.id; 
-  
+    const userId = this.userSessionService.getUser()?.id;
+
     if (!userId) {
       console.error("Usuário não autenticado!");
-      return new Observable<Task[]>();  
+      return new Observable<Task[]>();
     }
-  
-    return this.http.get<Task[]>(`${this.apiUrl}/shopping-list`).pipe(
-      map((tasks: Task[]) => tasks.filter(task => task.userId === userId))  
-    );
+
+    return this.http
+      .get<Task[]>(`${this.apiUrl}/shopping-list`)
+      .pipe(
+        map((tasks: Task[]) => tasks.filter((task) => task.userId === userId))
+      );
   }
-  
 
   addTask(task: Omit<Task, "id">): Observable<Task> {
     return this.http
@@ -61,41 +73,46 @@ export class TaskService {
       );
   }
 
-  // Método para completar uma tarefa
   completeTask(id: number, data: { completed: boolean }): Observable<Task> {
-    return this.http.patch<Task>(`${this.apiUrl}/shopping-list/${id}`, data).pipe(
-      tap((updatedTask) => {
-        const tasks = this.tasksSubject.getValue();
-        const taskIndex = tasks.findIndex((task) => task.id === updatedTask.id);
-        if (taskIndex !== -1) {
-          tasks[taskIndex] = updatedTask;
-          this.tasksSubject.next(tasks); // Atualiza a lista de tarefas
-        }
-      })
-    );
+    return this.http
+      .patch<Task>(`${this.apiUrl}/shopping-list/${id}`, data)
+      .pipe(
+        tap((updatedTask) => {
+          const tasks = this.tasksSubject.getValue();
+          const taskIndex = tasks.findIndex(
+            (task) => task.id === updatedTask.id
+          );
+          if (taskIndex !== -1) {
+            tasks[taskIndex] = updatedTask;
+            this.tasksSubject.next(tasks);
+          }
+        })
+      );
   }
 
-  // Método para remover uma tarefa
   removeTask(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/shopping-list/${id}`).pipe(
       tap(() => {
         const tasks = this.tasksSubject.getValue();
-        this.tasksSubject.next(tasks.filter((task) => task.id !== id)); // Atualiza a lista de tarefas
+        this.tasksSubject.next(tasks.filter((task) => task.id !== id));
       })
     );
   }
 
-  // Método para atualizar uma tarefa
   updateTask(id: number, data: { title: string }): Observable<Task> {
-    return this.http.patch<Task>(`${this.apiUrl}/shopping-list/${id}`, data).pipe(
-      tap((updatedTask) => {
-        const tasks = this.tasksSubject.getValue();
-        const taskIndex = tasks.findIndex((task) => task.id === updatedTask.id);
-        if (taskIndex !== -1) {
-          tasks[taskIndex] = updatedTask;
-          this.tasksSubject.next(tasks); // Atualiza a lista de tarefas
-        }
-      })
-    );
+    return this.http
+      .patch<Task>(`${this.apiUrl}/shopping-list/${id}`, data)
+      .pipe(
+        tap((updatedTask) => {
+          const tasks = this.tasksSubject.getValue();
+          const taskIndex = tasks.findIndex(
+            (task) => task.id === updatedTask.id
+          );
+          if (taskIndex !== -1) {
+            tasks[taskIndex] = updatedTask;
+            this.tasksSubject.next(tasks);
+          }
+        })
+      );
   }
 }

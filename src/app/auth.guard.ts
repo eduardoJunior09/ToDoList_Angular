@@ -14,10 +14,10 @@ export class AuthGuard implements CanActivate {
     return this.auth.isAuthenticated$.pipe(
       tap((isAuthenticated: boolean) => {
         if (!isAuthenticated) {
-          this.router.navigate(['/']); // Redireciona para a página inicial se não estiver autenticado
+          this.router.navigate(['/']); 
         }
       }),
-      map((isAuthenticated: boolean) => isAuthenticated) // Retorna o valor booleano
+      map((isAuthenticated: boolean) => isAuthenticated) 
     );
   }
 }
